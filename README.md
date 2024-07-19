@@ -1,66 +1,167 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+An API built with laravel that functions as a web directory, where various websites are listed, categorized and ranked based on user actions.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+DOCUMENTATION ON EACH ENPOINT
 
-## About Laravel
+1. Get All Websites
+Description: Retrieve a list of all websites, sorted by votes.
+HTTP Method: GET
+URL: /api/websites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Headers: Content-Type: application/json
+Request Parameters: None
+Request Example
+GET http://127.0.0.1:8000/api/websites/
+Response
+[
+    {
+        "id": 21,
+        "url": "https://www.netflix.com/ng/",
+        "title": "Netflix website",
+        "description": "A website belonging to Netflix",
+        "created_at": "2024-07-19T07:12:02.000000Z",
+        "updated_at": "2024-07-19T07:12:02.000000Z",
+        "votes_count": 2
+    },
+    {
+        "id": 3,
+        "url": "http://volkman.org/culpa-dolore-impedit-exercitationem-libero-possimus-repellendus-cupiditate-qui.html",
+        "title": "Voluptatem consequatur qui aut dolores eius non rerum.",
+        "description": "Expedita qui incidunt laboriosam. Neque repudiandae mollitia fuga voluptatibus. Iste error sed error qui non. Excepturi ducimus laboriosam repellendus atque quo impedit quos. Tenetur eum ducimus dolor in eius deserunt.",
+        "created_at": "2024-07-19T05:53:54.000000Z",
+        "updated_at": "2024-07-19T05:53:54.000000Z",
+        "votes_count": 0
+    }
+]
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+2. Search Websites
+Description
+Search for websites based on a search term. It checks the URL column, title column, and description column of the website table to see if the search term has a match. It orders the search response based on highest vote first
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+HTTP Method
+GET
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+URL
+/api/websites/search
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Headers
+Content-Type: application/json
+Request Parameters
+search: (string) The search term.
 
-## Laravel Sponsors
+Request Example
+GET http://127.0.0.1:8000/api/websites/search?search=netflix
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Response 
+[
+    {
+        "id": 21,
+        "url": "https://www.netflix.com/ng/",
+        "title": "Netflix website",
+        "description": "A website belonging to Netflix",
+        "created_at": "2024-07-19T07:12:02.000000Z",
+        "updated_at": "2024-07-19T07:12:02.000000Z",
+        "votes_count": 0
+    }
+]
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+3. Add a Website
+Description
+Add a new website to the directory.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+HTTP Method
+POST
 
-## Code of Conduct
+URL
+/api/websites/add
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Headers
+Content-Type: application/json
+Request Parameters/Body
+url (string, required): The URL of the website.
+title (string, required): The title of the website.
+description (string, optional): The description of the website.
+category_ids (array of integers, required): The IDs of the categories to which the website belongs.
 
-## Security Vulnerabilities
+Request Example
+POST http://127.0.0.1:8000/api/websites/add
+Body = {
+    "url": "https://www.twitter.com/ng/",
+    "title": "Twitter website",
+    "description": "A website belonging to Twitter",
+    "category_ids": [ 1, 2 ]
+}
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Response: It returns the newly added website details
+{
+    "url": "https://www.twitter.com/ng/",
+    "title": "Twitter website",
+    "description": "A website belonging to Twitter",
+    "updated_at": "2024-07-19T09:15:16.000000Z",
+    "created_at": "2024-07-19T09:15:16.000000Z",
+    "id": 34
+}
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. Vote/Unvote for a Website
+Description
+Vote for a website. you can unvote a website by calling this same endpoint. if a user has voted on a website already, and you call this enpoint with the same user id on the same website, the vote is removed (unvoting)
+
+HTTP Method
+POST
+
+URL
+/api/websites/vote/{id}
+
+Headers
+Content-Type: application/json
+Request Parameters/Body
+user_id (integer, required): The ID of the user voting for the website.
+Request Example
+POST http://127.0.0.1:8000/api/websites/vote/21
+Body = {
+    "user_id": 1
+}
+
+Response
+{
+    "message": "Vote added"
+} 
+
+OR
+
+{
+    "message": "Vote removed"
+}
+
+
+
+5. Delete a Website
+Description
+Delete a website from the directory.
+
+HTTP Method
+DELETE
+
+URL
+/api/websites/delete/{id}
+
+Headers
+Content-Type: application/json
+Authorization: Bearer <your-token>
+Request Parameters
+id (integer, required): The ID of the website to be deleted.
+Request Example
+delete http://127.0.0.1:8000/api/websites/delete/1
+
+Response
+{
+    "message": "Website deleted successfully"
+}
+
+
+LIMITATIONS AND ISSUES
+1. I Had Issues with Sanctum Authentication. I could not get the token from /sanctum/csrf-cookie endpoint. I need the token first before I can make subsequent requests to the App's endpoint, but I could not get it. I had to move on with other endpoints, with the intention of fixing the Authentication, but beacuse I started working on the challange late, I could not come back to this. So, All the endpoints for now, do not require Authentication
