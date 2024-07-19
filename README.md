@@ -2,7 +2,9 @@ An API built with laravel that functions as a web directory, where various websi
 
 DOCUMENTATION ON EACH ENPOINT
 
-1. Get All Websites
+
+1. 
+Get All Websites
 Description: Retrieve a list of all websites, sorted by votes.
 HTTP Method: GET
 URL: /api/websites
@@ -35,7 +37,11 @@ Response
 
 
 
-2. Search Websites
+
+
+
+2. 
+Search Websites
 Description
 Search for websites based on a search term. It checks the URL column, title column, and description column of the website table to see if the search term has a match. It orders the search response based on highest vote first
 
@@ -68,7 +74,11 @@ Response
 
 
 
-3. Add a Website
+
+
+
+3. 
+Add a Website
 Description
 Add a new website to the directory.
 
@@ -106,7 +116,10 @@ Response: It returns the newly added website details
 }
 
 
-4. Vote/Unvote for a Website
+
+
+4. 
+Vote/Unvote for a Website
 Description
 Vote for a website. you can unvote a website by calling this same endpoint. if a user has voted on a website already, and you call this enpoint with the same user id on the same website, the vote is removed (unvoting)
 
@@ -139,7 +152,8 @@ OR
 
 
 
-5. Delete a Website
+5. 
+Delete a Website
 Description
 Delete a website from the directory.
 
@@ -164,4 +178,5 @@ Response
 
 
 LIMITATIONS AND ISSUES
-1. I Had Issues with Sanctum Authentication. I could not get the token from /sanctum/csrf-cookie endpoint. I need the token first before I can make subsequent requests to the App's endpoint, but I could not get it. I had to move on with other endpoints, with the intention of fixing the Authentication, but beacuse I started working on the challange late, I could not come back to this. So, All the endpoints for now, do not require Authentication
+1. 
+I Had Issues with Sanctum Authentication. I could not get the token from /sanctum/csrf-cookie endpoint. I need the token first before I can make subsequent requests to the App's endpoint, but I could not get it. I had to move on with other endpoints, with the intention of fixing the Authentication, but beacuse I started working on the challange late, I could not come back to this. So, All the endpoints for now, do not require Authentication
