@@ -216,3 +216,15 @@ LIMITATIONS AND ISSUES
 1. 
 
 I Had Issues with Sanctum Authentication. I could not get the token from /sanctum/csrf-cookie endpoint. I need the token first before I can make subsequent requests to the App's endpoint, but I could not get it. I had to move on with other endpoints, with the intention of fixing the Authentication, but beacuse I started working on the challange late, I could not come back to this. So, All the endpoints for now, do not require Authentication
+
+
+HOW TO RUN
+
+Requirements:
+Laravel, Php, composer, Apache(you can download xampp)
+
+Clone repo
+
+in the root directory run composer install and npm install
+
+Run php artisan serve
